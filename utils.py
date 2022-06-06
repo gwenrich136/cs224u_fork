@@ -15,9 +15,9 @@ __author__ = "Christopher Potts"
 __version__ = "CS224u, Stanford, Spring 2022"
 
 
-START_SYMBOL = "<s>"
-END_SYMBOL = "</s>"
-UNK_SYMBOL = "$UNK"
+START_SYMBOL = "[CLS]" #<s>"
+END_SYMBOL = "[SEP]" #</s>"
+UNK_SYMBOL = "[UNK]" #"$UNK"
 
 
 def glove2dict(src_filename):

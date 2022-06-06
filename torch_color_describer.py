@@ -88,7 +88,7 @@ class ColorDataset(torch.utils.data.Dataset):
         """
         color_seqs, word_seqs, ex_lengths = zip(*batch)
         # Conversion to Tensors:
-        color_seqs = torch.FloatTensor(color_seqs)
+        color_seqs = torch.FloatTensor(np.array(color_seqs))
         word_seqs = [torch.LongTensor(seq) for seq in word_seqs]
         ex_lengths = torch.LongTensor(ex_lengths)
         # Targets as next-word predictions:
@@ -546,7 +546,7 @@ class ContextualColorDescriber(TorchModelBase):
                     word_seqs=decoder_input,
                     seq_lengths=None,
                     hidden=hidden)
-
+                
                 # Always take the highest probability token to
                 # be the prediction:
                 p = output.argmax(2)
@@ -874,11 +874,11 @@ def create_example_dataset(group_size=100, vec_dim=2):
 
     """
     groups = ((0.0, 0.2), (0.4, 0.6), (0.8, 1.0))
-    vocab = ['<s>', '</s>', 'A', 'B', '$UNK']
+    vocab = [START_SYMBOL, END_SYMBOL, 'A', 'B', UNK_SYMBOL]
     seqs = [
-        ['<s>', 'A', '</s>'],
-        ['<s>', 'A', 'B', '</s>'],
-        ['<s>', 'B', 'A', 'B', 'A', '</s>']]
+        [START_SYMBOL, 'A', END_SYMBOL],
+        [START_SYMBOL, 'A', 'B', END_SYMBOL],
+        [START_SYMBOL, 'B', 'A', 'B', 'A', END_SYMBOL]]
 
     color_seqs = []
     word_seqs = []
